@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "86a9fdd7-9ea4-4a84-b0ad-6fed67070a86",
+		"name": "haki",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+  "item": [
+    {
+			"name": "TokenGenerator",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "73739e23-fb26-474e-b202-7ea845e06c55",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"var token = jsonData.accessToken;\r",
+							"postman.setEnvironmentVariable(\"token\", token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"username\":\"user1\",\n\"password\":\"password1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api/token/",
+					"host": [
+						"http://ec2-34-197-190-139.compute-1.amazonaws.com/api"
+					],
+					"path": [
+						"token"
+						
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FileUpload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"var token = jsonData.accessToken;\r",
+							"postman.setEnvironmentVariable(\"token\", token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": ""
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api/upload",
+					"host": [
+						"http://ec2-34-197-190-139.compute-1.amazonaws.com/api"
+					],
+					"path": [
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+    {"name": "Poll_Voting_History - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"option\":\"\",\"poll_question_id\":\"\",\"poll_question_option_id\":\"\",\"user_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["Poll_voting_history"] } }, "response": [] }
+,{"name": "Poll_Voting_History - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"option\":\"\",\"poll_question_id\":\"\",\"poll_question_option_id\":\"\",\"user_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["Poll_voting_history","${id}"] } }, "response": [] }
+,{"name": "Poll_Voting_History - Update Only Passed Columns", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PATCH", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"option\":\"\",\"poll_question_id\":\"\",\"poll_question_option_id\":\"\",\"user_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["Poll_voting_history","${id}"] } }, "response": [] }
+,{"name": "Poll_Voting_History - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["Poll_voting_history","?pageNo=1&pageSize=100"] } }, "response": [] }
+,{"name": "Poll_Voting_History - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["Poll_voting_history","${id}"] } }, "response": [] }
+,{"name": "Poll_Voting_History - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["Poll_voting_history","search","${searchKey}","?pageNo=1&pageSize=30"] } }, "response": [] }
+,{"name": "Poll_Voting_History - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"option\":\"\",\"poll_question_id\":\"\",\"poll_question_option_id\":\"\",\"user_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["Poll_voting_history","${id}"] } }, "response": [] }
+,{"name": "Category - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"name\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["category"] } }, "response": [] }
+,{"name": "Category - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"name\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["category","${id}"] } }, "response": [] }
+,{"name": "Category - Update Only Passed Columns", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PATCH", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"name\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["category","${id}"] } }, "response": [] }
+,{"name": "Category - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["category","?pageNo=1&pageSize=100"] } }, "response": [] }
+,{"name": "Category - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["category","${id}"] } }, "response": [] }
+,{"name": "Category - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["category","search","${searchKey}","?pageNo=1&pageSize=30"] } }, "response": [] }
+,{"name": "Category - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"name\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["category","${id}"] } }, "response": [] }
+,{"name": "Poll - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"name\":\"\",\"description\":\"\",\"category_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["poll"] } }, "response": [] }
+,{"name": "Poll - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"name\":\"\",\"description\":\"\",\"category_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["poll","${id}"] } }, "response": [] }
+,{"name": "Poll - Update Only Passed Columns", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PATCH", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"name\":\"\",\"description\":\"\",\"category_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["poll","${id}"] } }, "response": [] }
+,{"name": "Poll - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["poll","?pageNo=1&pageSize=100"] } }, "response": [] }
+,{"name": "Poll - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["poll","${id}"] } }, "response": [] }
+,{"name": "Poll - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["poll","search","${searchKey}","?pageNo=1&pageSize=30"] } }, "response": [] }
+,{"name": "Poll - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"name\":\"\",\"description\":\"\",\"category_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["poll","${id}"] } }, "response": [] }
+,{"name": "Poll_Question - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"question\":\"\",\"poll_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["poll_question"] } }, "response": [] }
+,{"name": "Poll_Question - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"question\":\"\",\"poll_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["poll_question","${id}"] } }, "response": [] }
+,{"name": "Poll_Question - Update Only Passed Columns", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PATCH", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"question\":\"\",\"poll_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["poll_question","${id}"] } }, "response": [] }
+,{"name": "Poll_Question - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["poll_question","?pageNo=1&pageSize=100"] } }, "response": [] }
+,{"name": "Poll_Question - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["poll_question","${id}"] } }, "response": [] }
+,{"name": "Poll_Question - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["poll_question","search","${searchKey}","?pageNo=1&pageSize=30"] } }, "response": [] }
+,{"name": "Poll_Question - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"question\":\"\",\"poll_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["poll_question","${id}"] } }, "response": [] }
+,{"name": "Poll_Question_Option - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"option\":\"\",\"poll_question_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["poll_question_option"] } }, "response": [] }
+,{"name": "Poll_Question_Option - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"option\":\"\",\"poll_question_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["poll_question_option","${id}"] } }, "response": [] }
+,{"name": "Poll_Question_Option - Update Only Passed Columns", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PATCH", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"option\":\"\",\"poll_question_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["poll_question_option","${id}"] } }, "response": [] }
+,{"name": "Poll_Question_Option - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["poll_question_option","?pageNo=1&pageSize=100"] } }, "response": [] }
+,{"name": "Poll_Question_Option - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["poll_question_option","${id}"] } }, "response": [] }
+,{"name": "Poll_Question_Option - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["poll_question_option","search","${searchKey}","?pageNo=1&pageSize=30"] } }, "response": [] }
+,{"name": "Poll_Question_Option - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"option\":\"\",\"poll_question_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["poll_question_option","${id}"] } }, "response": [] }
+,{"name": "Settings - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"group\":\"\",\"key\":\"\",\"value\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["settings"] } }, "response": [] }
+,{"name": "Settings - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"group\":\"\",\"key\":\"\",\"value\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["settings","${id}"] } }, "response": [] }
+,{"name": "Settings - Update Only Passed Columns", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PATCH", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"group\":\"\",\"key\":\"\",\"value\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["settings","${id}"] } }, "response": [] }
+,{"name": "Settings - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["settings","?pageNo=1&pageSize=100"] } }, "response": [] }
+,{"name": "Settings - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["settings","${id}"] } }, "response": [] }
+,{"name": "Settings - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["settings","search","${searchKey}","?pageNo=1&pageSize=30"] } }, "response": [] }
+,{"name": "Settings - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"group\":\"\",\"key\":\"\",\"value\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["settings","${id}"] } }, "response": [] }
+,{"name": "Users - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"full_name\":\"\",\"birth_date\":\"\",\"gender\":\"\",\"religion\":\"\",\"email\":\"\",\"country\":\"\",\"city\":\"\",\"geo\":\"\",\"otp\":\"\",\"active\":\"\",\"phone\":\"\",\"password\":\"\",\"fcm_token\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["users"] } }, "response": [] }
+,{"name": "Users - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"full_name\":\"\",\"birth_date\":\"\",\"gender\":\"\",\"religion\":\"\",\"email\":\"\",\"country\":\"\",\"city\":\"\",\"geo\":\"\",\"otp\":\"\",\"active\":\"\",\"phone\":\"\",\"password\":\"\",\"fcm_token\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["users","${id}"] } }, "response": [] }
+,{"name": "Users - Update Only Passed Columns", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PATCH", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"full_name\":\"\",\"birth_date\":\"\",\"gender\":\"\",\"religion\":\"\",\"email\":\"\",\"country\":\"\",\"city\":\"\",\"geo\":\"\",\"otp\":\"\",\"active\":\"\",\"phone\":\"\",\"password\":\"\",\"fcm_token\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["users","${id}"] } }, "response": [] }
+,{"name": "Users - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["users","?pageNo=1&pageSize=100"] } }, "response": [] }
+,{"name": "Users - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["users","${id}"] } }, "response": [] }
+,{"name": "Users - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["users","search","${searchKey}","?pageNo=1&pageSize=30"] } }, "response": [] }
+,{"name": "Users - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"full_name\":\"\",\"birth_date\":\"\",\"gender\":\"\",\"religion\":\"\",\"email\":\"\",\"country\":\"\",\"city\":\"\",\"geo\":\"\",\"otp\":\"\",\"active\":\"\",\"phone\":\"\",\"password\":\"\",\"fcm_token\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "http://ec2-34-197-190-139.compute-1.amazonaws.com/api", "host": [ "http://ec2-34-197-190-139.compute-1.amazonaws.com/api" ], "path": ["users","${id}"] } }, "response": [] }
+
+  ],
+	"protocolProfileBehavior": {}
+}

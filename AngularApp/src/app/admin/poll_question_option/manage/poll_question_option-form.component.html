@@ -1,0 +1,25 @@
+<div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="space-around stretch">
+
+    <mat-card fxFlex.gt-xs="100" class="mb15">
+        <mat-card-title>{{isEditMode?'Edit':'Add'}} Poll_Question_Option</mat-card-title>
+        <mat-card-content>
+            <form [formGroup]="poll_question_optionform" novalidate (ngSubmit)="confirmSubmit()">
+                
+                 <mat-form-field class="full-width">
+<input type="text" matInput formControlName="option" id="option" class="form-control" placeholder="option" [(ngModel)]="data.option" />
+</mat-form-field>
+<mat-form-field class="full-width">
+<input type="number" matInput formControlName="poll_question_id" id="poll_question_id" class="form-control" placeholder="poll_question_id" [(ngModel)]="data.poll_question_id" />
+</mat-form-field>
+
+
+                <div fxLayoutGap="20px">
+                    <button mat-raised-button color="primary" type="submit" [disabled]="!poll_question_optionform.valid">Save</button>
+                    <button mat-raised-button color="accent" type="button" tabindex="-1"
+                        [routerLink]="['/poll_question_option']">Cancel</button>
+                </div>
+
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

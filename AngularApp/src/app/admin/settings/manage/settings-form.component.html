@@ -1,0 +1,28 @@
+<div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="space-around stretch">
+
+    <mat-card fxFlex.gt-xs="100" class="mb15">
+        <mat-card-title>{{isEditMode?'Edit':'Add'}} Settings</mat-card-title>
+        <mat-card-content>
+            <form [formGroup]="settingsform" novalidate (ngSubmit)="confirmSubmit()">
+                
+                 <mat-form-field class="full-width">
+<input type="text" matInput formControlName="group" id="group" class="form-control" placeholder="group" [(ngModel)]="data.group" />
+</mat-form-field>
+<mat-form-field class="full-width">
+<input type="text" matInput formControlName="key" id="key" class="form-control" placeholder="key" [(ngModel)]="data.key" />
+</mat-form-field>
+<mat-form-field class="full-width">
+<input type="text" matInput formControlName="value" id="value" class="form-control" placeholder="value" [(ngModel)]="data.value" />
+</mat-form-field>
+
+
+                <div fxLayoutGap="20px">
+                    <button mat-raised-button color="primary" type="submit" [disabled]="!settingsform.valid">Save</button>
+                    <button mat-raised-button color="accent" type="button" tabindex="-1"
+                        [routerLink]="['/settings']">Cancel</button>
+                </div>
+
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
