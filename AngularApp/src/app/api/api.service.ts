@@ -61,7 +61,7 @@ export class APIService {
     }
     put(url: string, data: any) {
         return new Promise(async (resolve) => {
-            this.api().put(url, data).then((res: any) => {
+            this.api().put(url + "/" + data.id, data).then((res: any) => {
                 resolve(res.data);
             }).catch((error) => {
                 if (axios.isAxiosError(error)) {
@@ -74,7 +74,7 @@ export class APIService {
     }
     delete(url: string, data: any) {
         return new Promise(async (resolve) => {
-            this.api().delete(url, data).then((res: any) => {
+            this.api().delete(url + "/" + data.id, data).then((res: any) => {
                 resolve(res.data);
             }).catch((error) => {
                 if (axios.isAxiosError(error)) {

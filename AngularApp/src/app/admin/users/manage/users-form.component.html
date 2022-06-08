@@ -8,16 +8,16 @@
                  <mat-form-field class="full-width">
 <input type="text" matInput formControlName="full_name" id="full_name" class="form-control" placeholder="full_name" [(ngModel)]="data.full_name" />
 </mat-form-field>
-<mat-form-field class="full-width">
+<mat-form-field class="full-width"  style="display:none">
 <input type="number" matInput formControlName="gender" id="gender" class="form-control" placeholder="gender" [(ngModel)]="data.gender" />
 </mat-form-field>
-<mat-form-field class="full-width">
+<mat-form-field class="full-width"  style="display:none">
 <input type="number" matInput formControlName="religion" id="religion" class="form-control" placeholder="religion" [(ngModel)]="data.religion" />
 </mat-form-field>
 <mat-form-field class="full-width">
 <input type="email" matInput formControlName="email" id="email" class="form-control" placeholder="email" [(ngModel)]="data.email" />
 </mat-form-field>
-<mat-form-field class="full-width">
+<mat-form-field class="full-width"  style="display:none">
 <input type="number" matInput formControlName="country" id="country" class="form-control" placeholder="country" [(ngModel)]="data.country" />
 </mat-form-field>
 <mat-form-field class="full-width">
@@ -44,24 +44,24 @@ active
 <mat-form-field class="full-width">
 <mat-label>gender</mat-label>
 <mat-select formControlName="gender" id="gender" [(ngModel)]="data.gender" class="form-control">
-<mat-option *ngFor="let r of settings_FKgroupList" [value]="r.id">
-{{r.group}}
+<mat-option *ngFor="let r of settings_FKgroupList_gender" [value]="r.id">
+{{r.value}}
 </mat-option>
 </mat-select>
 </mat-form-field>
 <mat-form-field class="full-width">
 <mat-label>religion</mat-label>
 <mat-select formControlName="religion" id="religion" [(ngModel)]="data.religion" class="form-control">
-<mat-option *ngFor="let r of settings_FKgroupList" [value]="r.id">
-{{r.group}}
+<mat-option *ngFor="let r of settings_FKgroupList_religion" [value]="r.id">
+{{r.value}}
 </mat-option>
 </mat-select>
 </mat-form-field>
 <mat-form-field class="full-width">
 <mat-label>country</mat-label>
 <mat-select formControlName="country" id="country" [(ngModel)]="data.country" class="form-control">
-<mat-option *ngFor="let r of settings_FKgroupList" [value]="r.id">
-{{r.group}}
+<mat-option *ngFor="let r of settings_FKgroupList_country" [value]="r.id">
+{{r.value}}
 </mat-option>
 </mat-select>
 </mat-form-field>

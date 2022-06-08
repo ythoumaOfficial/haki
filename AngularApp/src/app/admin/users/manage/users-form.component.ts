@@ -17,9 +17,9 @@ import { ToastrService } from 'ngx-toastr';
 export class AddEditUsersComponent implements OnInit {
 
   isEditMode: boolean = false;
-  settings_FKgroupList:any[] =[];
-settings_FKgroupList:any[] =[];
-settings_FKgroupList:any[] =[];
+  settings_FKgroupList_gender: any[] = [];
+  settings_FKgroupList_religion:any[] =[];
+  settings_FKgroupList_country:any[] =[];
 
   color: ThemePalette = 'accent';
   data: any;
@@ -33,51 +33,54 @@ settings_FKgroupList:any[] =[];
     private toastr: ToastrService
   ) {
     this.data = {};
-    
+
     this.usersform = new FormGroup({
-    'full_name': new FormControl(this.data.full_name, [Validators.required]),
-'birth_date': new FormControl(this.data.birth_date, [Validators.required]),
-'gender': new FormControl(this.data.gender, [Validators.required]),
-'religion': new FormControl(this.data.religion, [Validators.required]),
-'email': new FormControl(this.data.email, [Validators.required]),
-'country': new FormControl(this.data.country, [Validators.required]),
-'city': new FormControl(this.data.city, [Validators.required]),
-'geo': new FormControl(this.data.geo, [Validators.required]),
-'otp': new FormControl(this.data.otp, [Validators.required]),
-'active': new FormControl(this.data.active, [Validators.required]),
-'phone': new FormControl(this.data.phone, [Validators.required]),
-'password': new FormControl(this.data.password, [Validators.required]),
-'fcm_token': new FormControl(this.data.fcm_token, [Validators.required]),
+      'full_name': new FormControl(this.data.full_name, [Validators.required]),
+      'birth_date': new FormControl(this.data.birth_date, [Validators.required]),
+      'gender': new FormControl(this.data.gender, [Validators.required]),
+      'religion': new FormControl(this.data.religion, [Validators.required]),
+      'email': new FormControl(this.data.email, [Validators.required]),
+      'country': new FormControl(this.data.country, [Validators.required]),
+      'city': new FormControl(this.data.city, [Validators.required]),
+      'geo': new FormControl(this.data.geo, [Validators.required]),
+      'otp': new FormControl(this.data.otp, [Validators.required]),
+      'active': new FormControl(this.data.active, [Validators.required]),
+      'phone': new FormControl(this.data.phone, [Validators.required]),
+      'password': new FormControl(this.data.password, [Validators.required]),
+      'fcm_token': new FormControl(this.data.fcm_token, [Validators.required]),
 
     });
-   this.settingsService.getSettings(1, 200, '').then((res: any) => {
- if (res.code === 1) {
-   this.settings_FKgroupList = res.document.records;
- } else {
-    this.settings_FKgroupList = [];
-}});
-this.settingsService.getSettings(1, 200, '').then((res: any) => {
- if (res.code === 1) {
-   this.settings_FKgroupList = res.document.records;
- } else {
-    this.settings_FKgroupList = [];
-}});
-this.settingsService.getSettings(1, 200, '').then((res: any) => {
- if (res.code === 1) {
-   this.settings_FKgroupList = res.document.records;
- } else {
-    this.settings_FKgroupList = [];
-}});
+    this.settingsService.getSettings(1, 200, 'country').then((res: any) => {
+      if (res.code === 1) {
+        this.settings_FKgroupList_country = res.document.records;
+      } else {
+        this.settings_FKgroupList_country = [];
+      }
+    });
+    this.settingsService.getSettings(1, 200, 'religion').then((res: any) => {
+      if (res.code === 1) {
+        this.settings_FKgroupList_religion = res.document.records;
+      } else {
+        this.settings_FKgroupList_religion = [];
+      }
+    });
+    this.settingsService.getSettings(1, 200, 'gender').then((res: any) => {
+      if (res.code === 1) {
+        this.settings_FKgroupList_gender = res.document.records;
+      } else {
+        this.settings_FKgroupList_gender = [];
+      }
+    });
 
   }
 
   ngOnInit() {
-    
-    this.activatedRoute.params.subscribe(params => {
-     // const userId = params['id'];
-     const id= params['id']
 
-      if (id && id!='add') {
+    this.activatedRoute.params.subscribe(params => {
+      // const userId = params['id'];
+      const id = params['id']
+
+      if (id && id != 'add') {
         this.usersService.getOneUsers(id).then((res: any) => {
           if (res.code === 1) {
             this.isEditMode = true;

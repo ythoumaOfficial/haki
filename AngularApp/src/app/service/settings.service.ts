@@ -42,7 +42,7 @@ export class SettingsService {
 
     updateSettings(data) {
         return new Promise(async (resolve) => {
-            const res = await this.apiService.post("settings", data);
+            const res = await this.apiService.put("settings", data);
             resolve(res);
         });
     }

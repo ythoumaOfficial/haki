@@ -15,30 +15,56 @@ exports.listAll = function (req, res) {
           pageSize = parseInt(req.query.pageSize);
         }
         var offset = (pageNo - 1) * pageSize;
-        SettingsController.getAll(req, offset, pageSize, function (err, settings) {
+        if (!req.query.searchKey)
+          SettingsController.getAll(req, offset, pageSize, function (err, settings) {
 
-          if (err) {
-            res.status(200).send(helper.createResponse(helper.Error, 0, err, ""));
-          } else {
-            var totalCount = 0;
+            if (err) {
+              res.status(200).send(helper.createResponse(helper.Error, 0, err, ""));
+            } else {
+              var totalCount = 0;
 
-            SettingsController.totalCount(req, function (err, total) {
-              if (err) {
-                res.status(200).send(helper.createResponse(helper.Error, 0, err, ""));
-              } else {
-                if (total && total[0] && total[0].TotalCount && total[0].TotalCount > 0) {
-                  totalCount = total[0].TotalCount;
-                  var result = { records: settings, pageNo: pageNo, pageSize: pageSize, totalCount: totalCount };
-                  res.status(200).send(helper.createResponse(helper.Success, 1, "Record found", result));
+              SettingsController.totalCount(req, function (err, total) {
+                if (err) {
+                  res.status(200).send(helper.createResponse(helper.Error, 0, err, ""));
                 } else {
-                  res.status(200).send(helper.createResponse(helper.Error, 0, "No Record Found", ""));
+                  if (total && total[0] && total[0].TotalCount && total[0].TotalCount > 0) {
+                    totalCount = total[0].TotalCount;
+                    var result = { records: settings, pageNo: pageNo, pageSize: pageSize, totalCount: totalCount };
+                    res.status(200).send(helper.createResponse(helper.Success, 1, "Record found", result));
+                  } else {
+                    res.status(200).send(helper.createResponse(helper.Error, 0, "No Record Found", ""));
+                  }
                 }
-              }
-            });
-          }
+              });
+            }
 
 
-        });
+          });
+        else {
+          SettingsController.search(req, req.query.searchKey.toLowerCase(), offset, pageSize, function (err, settings) {
+
+            if (err) {
+              res.status(200).send(helper.createResponse(helper.Error, 0, err, ""));
+            } else {
+              var totalCount = 0;
+              SettingsController.totalSearchCount(req, req.query.searchKey.toLowerCase(), function (err, total) {
+                if (err) {
+                  res.status(200).send(helper.createResponse(helper.Error, 0, err, ""));
+                } else {
+                  if (total && total[0] && total[0].TotalCount && total[0].TotalCount > 0) {
+                    totalCount = total[0].TotalCount;
+                    var result = { records: settings, pageNo: pageNo, pageSize: pageSize, totalCount: totalCount };
+                    res.status(200).send(helper.createResponse(helper.Success, 1, "Record found", result));
+                  } else {
+                    res.status(200).send(helper.createResponse(helper.Error, 0, "No Record Found", ""));
+                  }
+                }
+              });
+            }
+
+
+          });
+        }
       } else {
         res.status(403).send(helper.createResponse(helper.Error, 0, helper.authError, ""));
       }
