@@ -39,6 +39,23 @@ Poll.getById = function (req, id, result) {
         }
     });
 };
+Poll.getAllById = function (req, id, result) {
+    sql.query(`SELECT JSON_ARRAYAGG(JSON_OBJECT('id', pq.id,'question', pq.question, 'options', 
+    (SELECT JSON_ARRAYAGG(JSON_OBJECT('id', pqo.id,'option', pqo.option)) FROM haki.poll_question_option pqo    
+    where pqo.poll_question_id  = pq.id ))) as result FROM haki.poll_question pq where pq.poll_id = ? LIMIT 0,1`,
+        id, function (err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+            }
+            else if (res && res.length > 0) {
+                result(null, res[0]);
+
+            } else {
+                result("Record Not Found", null);
+            }
+        });
+};
 Poll.totalCount = function (req, result) {
     sql.query("SELECT count(*) TotalCount FROM poll t  join category fff on t.category_id = fff.id  ", function (err, res) {
         if (err) {
