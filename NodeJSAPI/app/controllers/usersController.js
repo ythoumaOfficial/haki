@@ -117,7 +117,7 @@ exports.createNew = function (req, res) {
           password: req.body.password,
           fcm_token: req.body.fcm_token,
         };
-        if (!createObj.full_name || !createObj.birth_date || !createObj.gender || !createObj.religion || !createObj.email || !createObj.country || !createObj.city || !createObj.geo || !createObj.otp || !createObj.active || !createObj.phone || !createObj.password || !createObj.fcm_token) {
+        if (!createObj.full_name || !createObj.birth_date || !createObj.gender || !createObj.religion) {
 
           res.status(400).send({ error: true, message: 'Please provide required fields' });
 

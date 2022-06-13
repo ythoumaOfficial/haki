@@ -42,7 +42,7 @@ export class CategoryService {
 
     updateCategory(data) {
         return new Promise(async (resolve) => {
-            const res = await this.apiService.post("category", data);
+            const res = await this.apiService.put("category", data);
             resolve(res);
         });
     }

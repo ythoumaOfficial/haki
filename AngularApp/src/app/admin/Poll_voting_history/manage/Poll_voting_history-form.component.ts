@@ -17,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 export class AddEditPoll_Voting_HistoryComponent implements OnInit {
 
   isEditMode: boolean = false;
-  users_FKfull_nameList:any[] =[];
+  users_FKfull_nameList: any[] = [];
 
   color: ThemePalette = 'accent';
   data: any;
@@ -31,30 +31,31 @@ export class AddEditPoll_Voting_HistoryComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.data = {};
-    
+
     this.Poll_voting_historyform = new FormGroup({
-    'option': new FormControl(this.data.option, [Validators.required]),
-'poll_question_id': new FormControl(this.data.poll_question_id, [Validators.required]),
-'poll_question_option_id': new FormControl(this.data.poll_question_option_id, [Validators.required]),
-'user_id': new FormControl(this.data.user_id, [Validators.required]),
+      'option': new FormControl(this.data.option, [Validators.required]),
+      'poll_question_id': new FormControl(this.data.poll_question_id, [Validators.required]),
+      'poll_question_option_id': new FormControl(this.data.poll_question_option_id, [Validators.required]),
+      'user_id': new FormControl(this.data.user_id, [Validators.required]),
 
     });
-   this.usersService.getUsers(1, 200, '').then((res: any) => {
- if (res.code === 1) {
-   this.users_FKfull_nameList = res.document.records;
- } else {
-    this.users_FKfull_nameList = [];
-}});
+    this.usersService.getUsers(1, 200, '').then((res: any) => {
+      if (res.code === 1) {
+        this.users_FKfull_nameList = res.document.records;
+      } else {
+        this.users_FKfull_nameList = [];
+      }
+    });
 
   }
 
   ngOnInit() {
-    
-    this.activatedRoute.params.subscribe(params => {
-     // const userId = params['id'];
-     const id= params['id']
 
-      if (id && id!='add') {
+    this.activatedRoute.params.subscribe(params => {
+      // const userId = params['id'];
+      const id = params['id']
+
+      if (id && id != 'add') {
         this.Poll_voting_historyService.getOnePoll_Voting_History(id).then((res: any) => {
           if (res.code === 1) {
             this.isEditMode = true;

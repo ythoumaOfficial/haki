@@ -143,17 +143,17 @@ Users.remove = function (req, id, result) {
 };
 
 
-Users.getById = function (req, id, offset, pageSize, result) {
-    sql.query("SELECT  hhhh.group as id_Value, bbbb.group as id_Value, kkkk.group as id_Value, t.* FROM users t  join settings hhhh on t.gender = hhhh.id  join settings bbbb on t.religion = bbbb.id  join settings kkkk on t.country = kkkk.id  WHERE t.id= ? LIMIT ?,?", [id, offset, pageSize], function (err, res) {
-        if (err) {
-            console.log('error: ', err);
-            result(null, err);
-        } else {
-            console.log('users : ', res);
-            result(null, res);
-        }
-    });
-};
+// Users.getById = function (req, id, offset, pageSize, result) {
+//     sql.query("SELECT  hhhh.group as id_Value, bbbb.group as id_Value, kkkk.group as id_Value, t.* FROM users t  join settings hhhh on t.gender = hhhh.id  join settings bbbb on t.religion = bbbb.id  join settings kkkk on t.country = kkkk.id  WHERE t.id= ? LIMIT ?,?", [id, offset, pageSize], function (err, res) {
+//         if (err) {
+//             console.log('error: ', err);
+//             result(null, err);
+//         } else {
+//             console.log('users : ', res);
+//             result(null, res);
+//         }
+//     });
+// };
 
 
 
@@ -167,17 +167,17 @@ Users.totalByIdCount = function (req, id, result) {
         }
     });
 };
-Users.getById = function (req, id, offset, pageSize, result) {
-    sql.query("SELECT  hhhh.group as id_Value, bbbb.group as id_Value, kkkk.group as id_Value, t.* FROM users t  join settings hhhh on t.gender = hhhh.id  join settings bbbb on t.religion = bbbb.id  join settings kkkk on t.country = kkkk.id  WHERE t.id= ? LIMIT ?,?", [id, offset, pageSize], function (err, res) {
-        if (err) {
-            console.log('error: ', err);
-            result(null, err);
-        } else {
-            console.log('users : ', res);
-            result(null, res);
-        }
-    });
-};
+// Users.getById = function (req, id, offset, pageSize, result) {
+//     sql.query("SELECT  hhhh.group as id_Value, bbbb.group as id_Value, kkkk.group as id_Value, t.* FROM users t  join settings hhhh on t.gender = hhhh.id  join settings bbbb on t.religion = bbbb.id  join settings kkkk on t.country = kkkk.id  WHERE t.id= ? LIMIT ?,?", [id, offset, pageSize], function (err, res) {
+//         if (err) {
+//             console.log('error: ', err);
+//             result(null, err);
+//         } else {
+//             console.log('users : ', res);
+//             result(null, res);
+//         }
+//     });
+// };
 
 
 
@@ -191,17 +191,17 @@ Users.totalByIdCount = function (req, id, result) {
         }
     });
 };
-Users.getById = function (req, id, offset, pageSize, result) {
-    sql.query("SELECT  hhhh.group as id_Value, bbbb.group as id_Value, kkkk.group as id_Value, t.* FROM users t  join settings hhhh on t.gender = hhhh.id  join settings bbbb on t.religion = bbbb.id  join settings kkkk on t.country = kkkk.id  WHERE t.id= ? LIMIT ?,?", [id, offset, pageSize], function (err, res) {
-        if (err) {
-            console.log('error: ', err);
-            result(null, err);
-        } else {
-            console.log('users : ', res);
-            result(null, res);
-        }
-    });
-};
+// Users.getById = function (req, id, offset, pageSize, result) {
+//     sql.query("SELECT  hhhh.group as id_Value, bbbb.group as id_Value, kkkk.group as id_Value, t.* FROM users t  join settings hhhh on t.gender = hhhh.id  join settings bbbb on t.religion = bbbb.id  join settings kkkk on t.country = kkkk.id  WHERE t.id= ? LIMIT ?,?", [id, offset, pageSize], function (err, res) {
+//         if (err) {
+//             console.log('error: ', err);
+//             result(null, err);
+//         } else {
+//             console.log('users : ', res);
+//             result(null, res);
+//         }
+//     });
+// };
 
 
 

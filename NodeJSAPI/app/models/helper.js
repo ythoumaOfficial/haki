@@ -34,9 +34,9 @@ function Helper() {
     }
 
     this.checkPermission = function (req, action, _callback) {
-        try {
-            console.log("checkPermission");
+        // try {
             const token = this.extractToken(req);
+            console.log("checkPermission",token);
             if (!token) {
                 //enable token check - uncomment below line
                 //return _callback(0);
@@ -60,10 +60,10 @@ function Helper() {
             else {
                 return _callback(0);
             }
-        } catch (ex) {
-            console.error("Internal error:" + ex);
-            return _callback(0);
-        }
+        // } catch (ex) {
+        //     console.error("Internal error:" + ex);
+        //     return _callback(0);
+        // }
     };
 
     this.extractToken = function (req) {

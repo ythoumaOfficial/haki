@@ -65,6 +65,7 @@ Poll_Question.totalSearchCount = function (req, searchKey, result) {
 };
 
 Poll_Question.getAll = function (req, offset, pageSize, result) {
+    console.log(offset, pageSize)
     sql.query("SELECT  sss.name as id_Value, t.* FROM poll_question t  join poll sss on t.poll_id = sss.id  LIMIT ?, ?", [offset, pageSize], function (err, res) {
 
         if (err) {
@@ -130,17 +131,17 @@ Poll_Question.remove = function (req, id, result) {
 };
 
 
-Poll_Question.getById = function (req, id, offset, pageSize, result) {
-    sql.query("SELECT  sss.name as id_Value, t.* FROM poll_question t  join poll sss on t.poll_id = sss.id  WHERE t.id= ? LIMIT ?,?", [id, offset, pageSize], function (err, res) {
-        if (err) {
-            console.log('error: ', err);
-            result(null, err);
-        } else {
-            console.log('poll_question : ', res);
-            result(null, res);
-        }
-    });
-};
+// Poll_Question.getById = function (req, id, offset, pageSize, result) {
+//     sql.query("SELECT  sss.name as id_Value, t.* FROM poll_question t  join poll sss on t.poll_id = sss.id  WHERE t.id= ? LIMIT ?,?", [id, offset, pageSize], function (err, res) {
+//         if (err) {
+//             console.log('error: ', err);
+//             result(null, err);
+//         } else {
+//             console.log('poll_question : ', res);
+//             result(null, res);
+//         }
+//     });
+// };
 
 
 

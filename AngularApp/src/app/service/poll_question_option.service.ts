@@ -42,7 +42,7 @@ export class Poll_Question_OptionService {
 
     updatePoll_Question_Option(data) {
         return new Promise(async (resolve) => {
-            const res = await this.apiService.post("poll_question_option", data);
+            const res = await this.apiService.put("poll_question_option", data);
             resolve(res);
         });
     }

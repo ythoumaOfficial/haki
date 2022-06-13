@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { Poll_Question_OptionService } from '../../../service/poll_question_option.service';
+import { Poll_QuestionService } from '../../../service/poll_question.service';
 
 import { ToastrService } from 'ngx-toastr';
 @Component({
@@ -17,35 +18,44 @@ import { ToastrService } from 'ngx-toastr';
 export class AddEditPoll_Question_OptionComponent implements OnInit {
 
   isEditMode: boolean = false;
-  
+
   color: ThemePalette = 'accent';
   data: any;
   formError: any[] = [];
+  poll_question_FK: any[] = [];
   poll_question_optionform: FormGroup;
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private poll_question_optionService: Poll_Question_OptionService,
-    
+    private poll_question_Service: Poll_QuestionService,
+
     private toastr: ToastrService
   ) {
     this.data = {};
-    
+
     this.poll_question_optionform = new FormGroup({
-    'option': new FormControl(this.data.option, [Validators.required]),
-'poll_question_id': new FormControl(this.data.poll_question_id, [Validators.required]),
+      'option': new FormControl(this.data.option, [Validators.required]),
+      'poll_question_id': new FormControl(this.data.poll_question_id, [Validators.required]),
 
     });
-   
+    this.poll_question_Service.getPoll_Question(1, 200, '').then((res: any) => {
+      if (res.code === 1) {
+        this.poll_question_FK = res.document.records;
+      } else {
+        this.poll_question_FK = [];
+      }
+    });
+
   }
 
   ngOnInit() {
-    
-    this.activatedRoute.params.subscribe(params => {
-     // const userId = params['id'];
-     const id= params['id']
 
-      if (id && id!='add') {
+    this.activatedRoute.params.subscribe(params => {
+      // const userId = params['id'];
+      const id = params['id']
+
+      if (id && id != 'add') {
         this.poll_question_optionService.getOnePoll_Question_Option(id).then((res: any) => {
           if (res.code === 1) {
             this.isEditMode = true;

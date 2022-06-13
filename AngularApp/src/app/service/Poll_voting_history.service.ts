@@ -42,7 +42,7 @@ export class Poll_Voting_HistoryService {
 
     updatePoll_Voting_History(data) {
         return new Promise(async (resolve) => {
-            const res = await this.apiService.post("Poll_voting_history", data);
+            const res = await this.apiService.put("Poll_voting_history", data);
             resolve(res);
         });
     }

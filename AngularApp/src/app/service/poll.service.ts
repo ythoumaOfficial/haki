@@ -42,7 +42,7 @@ export class PollService {
 
     updatePoll(data) {
         return new Promise(async (resolve) => {
-            const res = await this.apiService.post("poll", data);
+            const res = await this.apiService.put("poll", data);
             resolve(res);
         });
     }

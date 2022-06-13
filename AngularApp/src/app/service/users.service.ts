@@ -42,7 +42,7 @@ export class UsersService {
 
     updateUsers(data) {
         return new Promise(async (resolve) => {
-            const res = await this.apiService.post("users", data);
+            const res = await this.apiService.put("users", data);
             resolve(res);
         });
     }

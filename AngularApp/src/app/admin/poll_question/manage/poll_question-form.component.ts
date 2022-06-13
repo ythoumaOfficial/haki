@@ -17,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 export class AddEditPoll_QuestionComponent implements OnInit {
 
   isEditMode: boolean = false;
-  poll_FKnameList:any[] =[];
+  poll_FKnameList: any[] = [];
 
   color: ThemePalette = 'accent';
   data: any;
@@ -31,28 +31,29 @@ export class AddEditPoll_QuestionComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.data = {};
-    
+
     this.poll_questionform = new FormGroup({
-    'question': new FormControl(this.data.question, [Validators.required]),
-'poll_id': new FormControl(this.data.poll_id, [Validators.required]),
+      'question': new FormControl(this.data.question, [Validators.required]),
+      'poll_id': new FormControl(this.data.poll_id, [Validators.required]),
 
     });
-   this.pollService.getPoll(1, 200, '').then((res: any) => {
- if (res.code === 1) {
-   this.poll_FKnameList = res.document.records;
- } else {
-    this.poll_FKnameList = [];
-}});
+    this.pollService.getPoll(1, 200, '').then((res: any) => {
+      if (res.code === 1) {
+        this.poll_FKnameList = res.document.records;
+      } else {
+        this.poll_FKnameList = [];
+      }
+    });
 
   }
 
   ngOnInit() {
-    
-    this.activatedRoute.params.subscribe(params => {
-     // const userId = params['id'];
-     const id= params['id']
 
-      if (id && id!='add') {
+    this.activatedRoute.params.subscribe(params => {
+      // const userId = params['id'];
+      const id = params['id']
+
+      if (id && id != 'add') {
         this.poll_questionService.getOnePoll_Question(id).then((res: any) => {
           if (res.code === 1) {
             this.isEditMode = true;

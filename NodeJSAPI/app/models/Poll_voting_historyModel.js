@@ -132,17 +132,17 @@ Poll_Voting_History.remove = function (req, id, result) {
 };
 
 
-Poll_Voting_History.getById = function (req, id, offset, pageSize, result) {
-    sql.query("SELECT  f.full_name as id_Value, t.* FROM Poll_voting_history t  join users f on t.user_id = f.id  WHERE t.id= ? LIMIT ?,?", [id, offset, pageSize], function (err, res) {
-        if (err) {
-            console.log('error: ', err);
-            result(null, err);
-        } else {
-            console.log('Poll_voting_history : ', res);
-            result(null, res);
-        }
-    });
-};
+// Poll_Voting_History.getById = function (req, id, offset, pageSize, result) {
+//     sql.query("SELECT  f.full_name as id_Value, t.* FROM Poll_voting_history t  join users f on t.user_id = f.id  WHERE t.id= ? LIMIT ?,?", [id, offset, pageSize], function (err, res) {
+//         if (err) {
+//             console.log('error: ', err);
+//             result(null, err);
+//         } else {
+//             console.log('Poll_voting_history : ', res);
+//             result(null, res);
+//         }
+//     });
+// };
 
 
 

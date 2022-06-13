@@ -131,17 +131,17 @@ Poll.remove = function (req, id, result) {
 };
 
 
-Poll.getById = function (req, id, offset, pageSize, result) {
-    sql.query("SELECT  fff.name as id_Value, t.* FROM poll t  join category fff on t.category_id = fff.id  WHERE t.id= ? LIMIT ?,?", [id, offset, pageSize], function (err, res) {
-        if (err) {
-            console.log('error: ', err);
-            result(null, err);
-        } else {
-            console.log('poll : ', res);
-            result(null, res);
-        }
-    });
-};
+// Poll.getById = function (req, id, offset, pageSize, result) {
+//     sql.query("SELECT  fff.name as id_Value, t.* FROM poll t  join category fff on t.category_id = fff.id  WHERE t.id= ? LIMIT ?,?", [id, offset, pageSize], function (err, res) {
+//         if (err) {
+//             console.log('error: ', err);
+//             result(null, err);
+//         } else {
+//             console.log('poll : ', res);
+//             result(null, res);
+//         }
+//     });
+// };
 
 
 
