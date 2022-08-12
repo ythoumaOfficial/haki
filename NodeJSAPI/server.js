@@ -208,39 +208,3 @@ poll_question_optionRoutes(prefixUrl, app)
 settingsRoutes(prefixUrl, app)
 usersRoutes(prefixUrl, app)
 
-var usersInstance = require('./app/models/usersModel');
-var pollInstance = require('./app/models/pollModel');
-
-app.get('/api/pollview/:pollid/:userid', (req, res) => {
-  res.header("Content-Type", 'text/html; charset=UTF-8');
-  let pollId = req.params.pollid
-  let userId = req.params.userid
-  usersInstance.getById(null, userId, function (err, user) {
-    if (user) {
-      pollInstance.getAllById(null, pollId, function (err, poll) {
-        if(poll){
-
-          console.log(poll)
-          let jsonResult = JSON.parse(poll['result']);
-          console.log(jsonResult);
-          return res.render('poll-view', { 'data': jsonResult });
-        }
-        else{
-          return res.render('poll-error', { 'message': 'poll not found' });
-        }
-      });
-    } else {
-      return res.render('poll-error', { 'message': 'user not found' });
-    }
-  })
-  /*
-  1- verfiy user exist
-  2- veriy poll active
-  3- veriy poll Answered
-  4- get poll with questions with Options
-  5- get poll statistics
-  */
-
-
-});
-

@@ -94,7 +94,36 @@ exports.search = function (req, res) {
   }
 };
 
+exports.createNewBulk = function (req, res) {
+  // try {
+  helper.checkPermission(req, "a", function (isPermited) {
+    if (isPermited) {
+      // console.log(req.body);
+      let dataToSave = req.body;
 
+      let newData = dataToSave.data.map(element => {
+        return [
+          0,
+          element.option,
+          element.poll_question_id,
+          element.poll_question_option_id,
+          element.user_id
+        ]
+      });
+      Poll_Voting_HistoryController.createAll(req, newData, function (err, Poll_voting_history) {
+        if (err) {
+          res.status(200).send(helper.createResponse(helper.Error, 0, err, ""));
+        }
+      });
+
+    } else {
+      res.status(403).send(helper.createResponse(helper.Error, 0, helper.authError, ""));
+    }
+  });
+  // } catch (error) {
+  //   res.status(500).send(helper.createResponse(helper.Error, 0, error.message, ''));
+  // }
+};
 exports.createNew = function (req, res) {
   try {
     helper.checkPermission(req, "a", function (isPermited) {

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Canceled</title>
+    <title>Voting</title>
 
     <style>
         html,
@@ -14,6 +14,7 @@
             padding: 0;
             width: 100%;
             height: 100%;
+            direction: rtl;
         }
 
         .container {
@@ -41,7 +42,16 @@
             margin: 0px;
             border-bottom: 1px solid #000;
             background: #fff;
+            position: relative;
             cursor: pointer;
+        }
+
+        .question-option-vote {
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            width: 100%;
+            height: 20%;
         }
     </style>
 </head>
@@ -49,61 +59,97 @@
 <body>
     <div class="container">
         <div class="lading-wrapper">
-            <h2 style="text-align: center;">
+            <h2 style="text-align: center;" id="the-form">
                 <% for(var i=0; i<data.length; i++) {%>
                     <div class="question">
                         <div class="question-text">
                             <%= data[i].question %>
                         </div>
                         <% for(var j=0; j<data[i].options.length; j++) {%>
-                            <div class="question-option" onclick="plusDivs(1)">
-                                <%= data[i].options[j].option %>
+                            <div class="question-option"
+                                onclick="plusDivs(1,<%= data[i].id%>,<%= data[i].options[j].id%>)">
+                                <div style="z-index:999">
+                                    <%= data[i].options[j].option %>
+                                </div>
                             </div>
-
-
                             <% } %>
                     </div>
                     <% } %>
                         <div style="font-weight: 100;font-size: 20px;">
                         </div>
             </h2>
+            <h2 id="thank-you" style="text-align: center; display:none;">
+                شكرا لك!
+            </h2>
         </div>
     </div>
     <script>
-        var slideIndex = 1;
-        showDivs(slideIndex);
+        var slideIndex = 0;
+        var objectData = { data: [] };
+        plusDivs(1);
 
-        function plusDivs(n) {
-            showDivs(slideIndex += n);
+        function plusDivs(n, questionId = 0, selectedAnswer = 0) {
+            if (questionId != 0)
+                objectData.data.push({
+                    option: '',
+                    poll_question_id: questionId,
+                    poll_question_option_id: selectedAnswer,
+                    user_id: <%= userId %>
+                });
+        shuffleColors();
+        showDivs(slideIndex += n);
         }
+
 
         function showDivs(n) {
             var i;
             var x = document.getElementsByClassName("question");
-            if (n > x.length) { slideIndex = 1 }
+            console.log(n, slideIndex, x.length);
+            if (n > x.length) {
+                // slideIndex = 1;
+                console.log('formCompleted')
+
+                document.getElementById('the-form').style.display = 'none';
+                document.getElementById('thank-you').style.display = 'block';
+                saveData();
+
+                return;
+            }
             if (n < 1) { slideIndex = x.length }
             for (i = 0; i < x.length; i++) {
                 x[i].style.display = "none";
             }
             x[slideIndex - 1].style.display = "block";
-            shuffleColors();
+
         }
-        function shuffleColors() {
+        function shuffleColors(withAnswers = false) {
             var i;
             var x = document.getElementsByClassName("question-option");
             for (i = 0; i < x.length; i++) {
-                x[i].style.backgroundColor = getRandomColor();
+                if (!withAnswers) {
+                    x[i].style.backgroundColor = getRandomColor();
+                } else {
+                    x[i].style.background = 'linear-gradient(to right, #fff 55%, ' + getRandomColor() + ' 50%)';
+                }
             }
         }
         function getRandomColor() {
-                var letters = 'BCDEF'.split('');
-                var color = '#';
-                for (var i = 0; i < 6; i++ ) {
-                    color += letters[Math.floor(Math.random() * letters.length)];
-                }
-                console.log(color);
-                return color;
+            var letters = 'BCDEF'.split('');
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * letters.length)];
             }
+            // console.log(color);
+            return color;
+        }
+        function saveData() {
+            var http = new XMLHttpRequest();
+            var url = 'http://localhost:8400/api/Poll_voting_history';
+            http.open('PATCH', url, true);
+            http.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            http.send(JSON.stringify(objectData));
+            window.location = '/api/pollview/<%= pollId %>/<%= userId %>'
+        }
     </script>
 </body>
 

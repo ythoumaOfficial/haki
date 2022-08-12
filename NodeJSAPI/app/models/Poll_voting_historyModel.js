@@ -157,4 +157,18 @@ Poll_Voting_History.totalByIdCount = function (req, id, result) {
     });
 };
 
+Poll_Voting_History.createAll = function (req, newPoll_Voting_History, result) {
+    console.log(newPoll_Voting_History);
+    sql.query("INSERT INTO Poll_voting_history (`id`,`option`, poll_question_id, poll_question_option_id, user_id) VALUES ?", [newPoll_Voting_History], function (err, res) {
+
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+        }
+        else {
+            console.log(res.insertId);
+            result(null, res.insertId);
+        }
+    });
+};
 module.exports = Poll_Voting_History;

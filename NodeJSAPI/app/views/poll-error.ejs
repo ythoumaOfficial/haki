@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting</title>
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            direction: rtl;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .lading-wrapper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .question {
+            display: none;
+        }
+
+        .question-text {
+            padding: 20px;
+            margin: 0px;
+            border-bottom: 1px solid #000;
+        }
+
+        .question-option {
+            padding: 30px;
+            margin: 0px;
+            border-bottom: 1px solid #000;
+            background: #fff;
+            position: relative;
+            cursor: pointer;
+        }
+        .question-option-vote {
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            width: 100%;
+            height: 20%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="lading-wrapper">
+            <h2 style="text-align: center;" id="the-form">
+                <%= message %>
+            </h2>
+        </div>
+    </div>
+</body>
+
+</html>

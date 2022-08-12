@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting yes</title>
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            direction: rtl;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .lading-wrapper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .question {
+            /* display: none; */
+        }
+
+        .question-text {
+            padding: 20px;
+            margin: 0px;
+            border-bottom: 1px solid #000;
+        }
+
+        .question-option {
+            padding: 30px;
+            margin: 0px;
+            border-bottom: 1px solid #000;
+            background: #fff;
+            position: relative;
+            cursor: pointer;
+        }
+        .question-option-vote {
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            width: 100%;
+            height: 25%;
+            color:red;
+            font-size: 19px;
+        }
+        .close{
+            text-align: center;
+            margin: 10px 100px;
+            padding: 10px;
+            border: 1px solid #000;
+            border-radius: 50px;
+            background-color: #fb676754;
+        }
+    </style>
+    <% 
+    getvotes = function (data, j,number = false) {
+        var totalVotes = 0; var thisVotes = 0; 
+        for (var k = 0; k < data.length; k++) {
+            totalVotes += data[k].votes; if (k == j) thisVotes = data[k].votes;
+        } 
+        if(totalVotes==0 || thisVotes==0) 
+            return 0; 
+        var finalone = ((thisVotes / totalVotes) * 100).toFixed(0); 
+        let final =  Math.floor(Math.random() * 100);
+        if(number)
+            return finalone;
+        let finalStyle = "linear-gradient(-90deg, rgb(0 0 0 / 66%) "+finalone+"%, rgb(255 255 255 / 66%) "+finalone+"%)";
+        console.log(thisVotes,totalVotes,final,finalone); 
+        return finalStyle;
+
+        //final; 
+    } 
+    %>
+</head>
+
+<body>
+    <div class="container">
+        <div class="lading-wrapper">
+            <h2 style="text-align: center;" id="the-form">
+                <% for(var i=0; i<data.length; i++) {%>
+                    <div class="question">
+                        <div class="question-text">
+                           <%= i+1 %> - <%= data[i].question %>
+                        </div>
+                        <% for(var j=0; j<data[i].options.length; j++) {%>
+                            <div class="question-option">
+                                <div style="z-index:999"> <%= data[i].options[j].option %></div>
+                                <div class="question-option-vote" style="background:<%= getvotes(data[i].options,j) %>;">
+                                    <div> <%= getvotes(data[i].options,j,true) %>%</div>
+                                </div>
+                            </div>
+                            <% } %>
+                    </div>
+                    <% } %>
+                        <div style="font-weight: 100;font-size: 20px;">
+                        </div>
+            </h2>
+            <h2 class="close" onclick="closeme()">
+               إغلاق
+            </h2>
+        </div>
+    </div>
+    <script>
+        function closeme(){
+            window.self.close(); 
+        }
+        shuffleColors();
+
+
+        function shuffleColors(withAnswers = false) {
+                var i;
+                var x = document.getElementsByClassName("question-option");
+                for (i = 0; i < x.length; i++) {
+                    if (!withAnswers) {
+                        x[i].style.backgroundColor = getRandomColor();
+                    } else {
+                        x[i].style.background = 'linear-gradient(to right, #fff 55%, ' + getRandomColor() + ' 50%)';
+                    }
+                }
+        }
+        function getRandomColor() {
+            var letters = 'BCDEF'.split('');
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * letters.length)];
+            }
+            return color;
+        }
+    </script>
+</body>
+
+</html>

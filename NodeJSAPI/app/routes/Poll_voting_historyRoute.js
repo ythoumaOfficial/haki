@@ -4,7 +4,8 @@ module.exports = function (prefix, app) {
 
   app.route(prefix + '/Poll_voting_history')
     .get(Poll_voting_historyInstance.listAll)
-    .post(Poll_voting_historyInstance.createNew);
+    .post(Poll_voting_historyInstance.createNew)
+    .patch(Poll_voting_historyInstance.createNewBulk);
 
   app.route(prefix + '/Poll_voting_history/:id')
     .get(Poll_voting_historyInstance.readById)

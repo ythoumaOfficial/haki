@@ -39,11 +39,24 @@ Poll.getById = function (req, id, result) {
         }
     });
 };
-Poll.getAllById = function (req, id, result) {
+Poll.getAllById = function (req, pollid, userid, result) {
     sql.query(`SELECT JSON_ARRAYAGG(JSON_OBJECT('id', pq.id,'question', pq.question, 'options', 
-    (SELECT JSON_ARRAYAGG(JSON_OBJECT('id', pqo.id,'option', pqo.option)) FROM haki.poll_question_option pqo    
-    where pqo.poll_question_id  = pq.id ))) as result FROM haki.poll_question pq where pq.poll_id = ? LIMIT 0,1`,
-        id, function (err, res) {
+    (SELECT JSON_ARRAYAGG(JSON_OBJECT('id', pqo.id,'option', pqo.option, 'votes',IFNULL((SELECT count(pvh.poll_question_option_id)
+    FROM haki.Poll_voting_history pvh
+    where pvh.poll_question_option_id = pqo.id
+    group by pvh.poll_question_option_id
+    limit 1),0)))
+    FROM haki.poll_question_option pqo
+    where pqo.poll_question_id  = pq.id 
+    ))) as result,
+    (select count(*) from poll p2
+    join poll_question pq2 on p2.id = pq2.poll_id
+    join Poll_voting_history pvh2 on pvh2.poll_question_id = pq2.id
+    where pvh2.user_id = ?) as completed,
+    (select count(*) from poll where id = ?) as exist
+    FROM haki.poll_question pq
+    where pq.poll_id = ? LIMIT 0,1`,
+        [userid, pollid, pollid], function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);
